@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html land="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Example Page</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <div id="control">
+            <input type="text" id="dimensionField">
+            <button id="submitDimension">Create Grid</button>
+        </div>
+
+        <div id="container">
+
+
+        </div>
+
+        <script>
+            
+            const container = document.querySelector("#container");
+            const createBtn = document.querySelector("#submitDimension");
+            const dimensionField = document.querySelector("#dimensionField");
+
+            createBtn.addEventListener("click", createGridBtn);
+
+            let dimension = 4;
+            const rows = [];
+            const squares = [];
+
+            function createGridBtn(){
+                dimension = parseInt(dimensionField.value);
+                createGrid(dimension);
+            }
+
+            function sketch(e){
+                e.target.classList.add("colored");
+            }
+
+            function createGrid (dimension) {
+
+                while(container.lastChild){
+                    container.removeChild(container.lastChild);
+                }
+
+                for(let i = 0; i < dimension; i++){
+                    rows[i] = document.createElement("div");
+                    rows[i].classList.add("row");
+                    container.appendChild(rows[i]);
+                }
+
+                for(let i = 0; i < dimension; i++){
+                    squares[i] = [];
+                    for(let j = 0; j < dimension; j++){
+                        squares[i][j] = document.createElement("div");
+                        squares[i][j].classList.add("col");
+                        squares[i][j].addEventListener("mouseover", sketch);
+                        rows[i].appendChild(squares[i][j]);
+                    }
+                }
+                
+            }
+
+
+
+            createGrid(dimension);
+
+
+
+
+        </script>
+    </body>
+</html>
